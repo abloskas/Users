@@ -6,9 +6,9 @@ class UsersController < ApplicationController
         @user = User.new(name:params[:name], email:params[:email], password:params[:password], password_confirmation:params[:confirm])
         if @user.save
             session[:user_id] = @user.id
-            redirect_to "users/#{@user.id}"
+            redirect_to "/sessions/new"
         else 
-            flash[:errors] = ["Invalid"] 
+            flash[:errors] = ["can't be blank"] 
             redirect_to '/users/new'
         end
     end
