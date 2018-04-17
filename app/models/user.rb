@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_many :secrets
+  has_many :likes, dependent: :destroy
+  has_many :secrets_liked, through: :likes, source: :secret
   has_secure_password
   before_validation :normalize_email, on: :create
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
