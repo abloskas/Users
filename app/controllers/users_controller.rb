@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
     before_action :require_login, except: [:new, :create]
+    before_action :user_permissions, only: [:show, :edit, :update, :destroy]
     
     def new
     end
@@ -45,5 +46,12 @@ class UsersController < ApplicationController
     private
      def user_params
         params.require(:user).permit(:name, :email)
+     end
+     def user_permissions
+        user = User.find(params[:id])
+        if user != current_user
+            flash[:errors] = ['You do not have permission to this. Please login with your credentials.']
+            redirect_to "/sessions/new"
+        end
      end
 end
