@@ -1,5 +1,7 @@
 <h1><%=@user.name%></h1>
+
 <a href="/users/<%=@user.id%>/edit">Edit Profile</a>
+
 
     <%= form_for :secret, url: "/secrets/create" do |s| %>
         <p>Secret: <%= s.text_field :content %></p>
@@ -18,4 +20,6 @@
         </form>
         <%end%>
         <%end%>
+        <br>
+        <a href="/secrets">See Secrets!</a>
  
