@@ -1,2 +1,21 @@
 <h1><%=@user.name%></h1>
 <a href="/users/edit">Edit Profile</a>
+
+    <%= form_for :secret, url: "/secrets/create" do |s| %>
+        <p>Secret: <%= s.text_field :content %></p>
+        <%= submit_tag "Create Secret" %>
+        <% end %>
+
+    <br>
+    <% current_user.secrets.each do |x|%>
+        <%= x.content %>
+
+        <% if current_user == x.user %>
+        <form action="/secrets/<%=x.id %>" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="hidden" name="_method" value="delete">
+            <input type="submit" value="Delete Secret">
+        </form>
+        <%end%>
+        <%end%>
+ 
